@@ -1,3 +1,5 @@
 .DS_Store
 edge-rank-algorithm/serilize_data.pickle
 edge-rank-algorithm/serilize_data.pickle
+edge-rank-algorithm/dataset/reactions.csv
+edge-rank-algorithm/dataset/shares.csv
