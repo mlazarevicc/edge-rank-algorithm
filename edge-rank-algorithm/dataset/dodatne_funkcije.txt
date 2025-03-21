@@ -1,0 +1,36 @@
+ class Trie:
+ 
+    ...
+    
+    #Dodavanje za rangiranje fraza
+    def add_phrase(self, post_id, phrase):
+        words = phrase.lower().split()
+        for i in range(len(words)):
+            current = self.root
+            for j in range(i, len(words)):
+                word = words[j]
+                if word not in current.children:
+                    current.children[word] = TrieNode()
+                current = current.children[word]
+                current.phrase_count += 1
+                current.post_ids.add(post_id)
+
+    def search_phrase(self, phrase):
+        words = phrase.lower().split()
+        current = self.root
+        for word in words:
+            if word not in current.children:
+                return []
+            current = current.children[word]
+        
+        return list(current.post_ids)
+    
+    def rank_phrases(self, phrases):
+        ranked_phrases = []
+        for phrase in phrases:
+            phrase_post_ids = self.search_phrase(phrase)
+            ranked_phrases.append((phrase, len(phrase_post_ids)))
+        
+        ranked_phrases.sort(key=lambda x: x[1], reverse=True)
+        return ranked_phrases
+    
